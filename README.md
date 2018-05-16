@@ -1,2 +1,2 @@
 # HotelShare
-Annual Project Master 2 - ESGI
+Annual Project - Master 2 - ESGI
