@@ -30,8 +30,8 @@ public class UserControllerTests {
     public void add_new_user() {
         given()
             .log().all()
-            .formParam("EMAIL_ADDRESS","braire2@yahoo.fr")
-            .formParam("ENCRYPTED_PASSWORD","3B27CBT7X6")
+            .formParam("EMAIL_ADDRESS","mail@yahoo.fr")
+            .formParam("ENCRYPTED_PASSWORD","passwordTest")
         .when()
             .post("api/users/add")
         .then()
