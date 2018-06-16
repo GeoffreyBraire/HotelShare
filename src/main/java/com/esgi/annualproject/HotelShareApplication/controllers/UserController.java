@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -21,13 +22,13 @@ public class UserController {
     UserProfileRepository userProfileRepository;
 
     // Get All Users
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> getAllNotes() {
         return userRepository.findAll();
     }
 
     // Get a Single User
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable(value = "id") Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
@@ -35,13 +36,13 @@ public class UserController {
 
 
     // Create a new User
-    @PostMapping("/add/users/")
+    @PostMapping("/add")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
 
     // Update a User
-    @PutMapping("/update/users/{id}")
+    @PutMapping("/update/{id}")
     public User updateNote(@PathVariable(value = "id") Long userId,
                            @Valid @RequestBody User userDetails) {
 
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     // Delete a User
-    @DeleteMapping("/delete/users/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));

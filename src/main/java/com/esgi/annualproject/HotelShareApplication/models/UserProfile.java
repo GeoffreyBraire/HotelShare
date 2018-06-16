@@ -103,9 +103,9 @@ public class UserProfile implements Serializable {
     @LastModifiedDate
     private Date updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    /*@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
-    private User userUpdate;
+    private User userUpdate;*/
 
     @Column(name="END_DATE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -138,7 +138,7 @@ public class UserProfile implements Serializable {
         this.timeZone = timeZone;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.userUpdate = userUpdate;
+        /*this.userUpdate = userUpdate;*/
         this.endDate = endDate;
     }
 
@@ -302,13 +302,13 @@ public class UserProfile implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public User getUserUpdate() {
+    /*public User getUserUpdate() {
         return userUpdate;
     }
 
     public void setUserUpdate(User userUpdate) {
         this.userUpdate = userUpdate;
-    }
+    }*/
 
     public Date getEndDate() {
         return endDate;
