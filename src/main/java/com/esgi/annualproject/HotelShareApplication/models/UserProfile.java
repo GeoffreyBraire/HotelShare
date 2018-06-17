@@ -1,9 +1,6 @@
 package com.esgi.annualproject.HotelShareApplication.models;
 
-import com.esgi.annualproject.HotelShareApplication.Enums.FamilyStatus;
-import com.esgi.annualproject.HotelShareApplication.Enums.Gender;
-import com.esgi.annualproject.HotelShareApplication.Enums.Language;
-import com.esgi.annualproject.HotelShareApplication.Enums.TimeZone;
+import com.esgi.annualproject.HotelShareApplication.Enums.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -64,11 +61,11 @@ public class UserProfile implements Serializable {
 
     @NotNull
     @Column(name = "FAVORITE_CURRENCY")
-    private String favoriteCurrency;
+    private Currency favoriteCurrency;
 
     @NotNull
     @Column(name = "COUNTRY_RESIDENCE")
-    private String countryResidence;
+    private Country countryResidence;
 
     @Column(name = "POSTAL_ADDRESS")
     private String postalAddress;
@@ -103,9 +100,9 @@ public class UserProfile implements Serializable {
     @LastModifiedDate
     private Date updatedDate;
 
-    /*@OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER")
-    private User userUpdate;*/
+    private int userUpdate;
 
     @Column(name="END_DATE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -116,10 +113,10 @@ public class UserProfile implements Serializable {
     public UserProfile(@NotNull boolean isAdmin, @NotNull String firstName,
                             @NotNull String lastName, @NotNull Gender gender, @NotNull Date birthDate,
                             @NotNull @Size(max = 15) String phoneNumber, @NotNull Language favoriteLanguage,
-                            ArrayList<Language> languages, @NotNull String favoriteCurrency,
-                            @NotNull String countryResidence, String postalAddress, @NotNull String userDescription,
+                            ArrayList<Language> languages, @NotNull Currency favoriteCurrency,
+                            @NotNull Country countryResidence, String postalAddress, @NotNull String userDescription,
                             FamilyStatus familyStatus, String school, String actualJob, TimeZone timeZone,
-                            @NotNull Date createdDate, @NotNull Date updatedDate, User userUpdate, Date endDate) {
+                            @NotNull Date createdDate, @NotNull Date updatedDate, int userUpdate, Date endDate) {
         this.isAdmin = isAdmin;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -138,7 +135,7 @@ public class UserProfile implements Serializable {
         this.timeZone = timeZone;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        /*this.userUpdate = userUpdate;*/
+        this.userUpdate = userUpdate;
         this.endDate = endDate;
     }
 
@@ -222,19 +219,19 @@ public class UserProfile implements Serializable {
         this.languages = languages;
     }
 
-    public String getFavoriteCurrency() {
+    public Currency getFavoriteCurrency() {
         return favoriteCurrency;
     }
 
-    public void setFavoriteCurrency(String favoriteCurrency) {
+    public void setFavoriteCurrency(Currency favoriteCurrency) {
         this.favoriteCurrency = favoriteCurrency;
     }
 
-    public String getCountryResidence() {
+    public Country getCountryResidence() {
         return countryResidence;
     }
 
-    public void setCountryResidence(String countryResidence) {
+    public void setCountryResidence(Country countryResidence) {
         this.countryResidence = countryResidence;
     }
 
@@ -302,13 +299,13 @@ public class UserProfile implements Serializable {
         this.updatedDate = updatedDate;
     }
 
-    /*public User getUserUpdate() {
+    public int getUserUpdate() {
         return userUpdate;
     }
 
-    public void setUserUpdate(User userUpdate) {
+    public void setUserUpdate(int userUpdate) {
         this.userUpdate = userUpdate;
-    }*/
+    }
 
     public Date getEndDate() {
         return endDate;
