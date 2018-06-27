@@ -1,6 +1,6 @@
 package com.esgi.annualproject.HotelShareApplication.repositories;
 
-import com.esgi.annualproject.HotelShareApplication.models.User;
+import com.esgi.annualproject.HotelShareApplication.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
