@@ -1,5 +1,6 @@
 package com.esgi.annualproject.HotelShareApplication.entities;
 
+import com.esgi.annualproject.HotelShareApplication.entities.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

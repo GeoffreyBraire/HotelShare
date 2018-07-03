@@ -1,6 +1,5 @@
 package com.esgi.annualproject.HotelShareApplication;
 
-import com.esgi.annualproject.HotelShareApplication.entities.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
