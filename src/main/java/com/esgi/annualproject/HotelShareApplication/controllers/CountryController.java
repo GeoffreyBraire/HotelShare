@@ -1,44 +1,62 @@
 package com.esgi.annualproject.HotelShareApplication.controllers;
 
 import com.esgi.annualproject.HotelShareApplication.entities.Country;
-import com.esgi.annualproject.HotelShareApplication.exceptions.ResourceNotFoundException;
-import com.esgi.annualproject.HotelShareApplication.repositories.CountryRepository;
+import com.esgi.annualproject.HotelShareApplication.exceptions.InvalidException;
+import com.esgi.annualproject.HotelShareApplication.exceptions.NotFoundException;
+import com.esgi.annualproject.HotelShareApplication.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
+
+@RestController
+@RequestMapping("/countries")
 public class CountryController {
     @Autowired
-    CountryRepository countryRepository;
+    protected CountryService countryService;
 
-    @GetMapping("/countries")
-    public Page<Country> getAllCountries(Pageable pageable) {
-        return countryRepository.findAll(pageable);
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Country create(@RequestBody @Valid Country country, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            throw new InvalidException();
+        }
+        return countryService.create(country);
     }
 
-    @PostMapping("/countries")
-    public Country createCountry(@Valid @RequestBody Country country) {
-        return countryRepository.save(country);
+    @GetMapping("/")
+    public List<Country> getAll() {
+        return countryService.getAll();
     }
 
-    @PutMapping("/countries/{countryId}")
-    public Country updateCountry(@PathVariable Long countryId, @Valid @RequestBody Country countryRequest) {
-        return countryRepository.findById(countryId).map(country -> {
-            country.setNameCountry(countryRequest.getNameCountry());
-            return countryRepository.save(country);
-        }).orElseThrow(() -> new ResourceNotFoundException("CountryId " + countryId + " not found"));
+    @GetMapping("/{id}")
+    public Country getById(@PathVariable("id") Long id) {
+        Country country = countryService.findById(id);
+        if (country == null) {
+            throw new NotFoundException();
+        }
+        return country;
     }
 
+    @PutMapping("/{id}")
+    public Country updateById(@PathVariable("id") Long id, @RequestBody @Valid Country newCountry, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            throw new InvalidException();
+        }
+        return countryService.updateById(id, newCountry);
+    }
 
-    @DeleteMapping("/countries/{countryId}")
-    public ResponseEntity<?> deleteCountry(@PathVariable Long countryId) {
-        return countryRepository.findById(countryId).map(country -> {
-            countryRepository.delete(country);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("CountryId " + countryId + " not found"));
+    @DeleteMapping("/{id}")
+    public Country deleteById(@PathVariable("id") Long id) {
+        Country country = countryService.deleteById(id);
+        if (country == null) {
+            throw new NotFoundException();
+        }
+        return country;
     }
 }

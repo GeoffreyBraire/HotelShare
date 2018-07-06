@@ -63,15 +63,6 @@ public class UserProfile extends AuditModel implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "ID_LANGUAGE") })
     private Set<Language> languages;
 
-    @Column(name = "IS_ADMIN")
-    private boolean isAdmin;
-
-    @Column(name = "FIRSTNAME")
-    private String fisrtname;
-
-    @Column(name = "LASTNAME")
-    private String lastname;
-
     @Column(name = "GENDER")
     private String gender;
 
